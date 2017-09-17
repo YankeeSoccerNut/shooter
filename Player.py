@@ -1,5 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
+from JoyStick import joystick
 
 
 class Player(Sprite):  # sub-class of pygame's Sprite class
@@ -52,21 +53,16 @@ class Player(Sprite):  # sub-class of pygame's Sprite class
 
     def get_current_direction(self):
         # implement a joystick of sorts using binary conversion
-        # no movement yields 0
-        # left right up down are straigtforward
-        # up and right == 17
-        # up and left == 20
-        # down and right == 9
-        # down and left == 12
+        # and named tuple (JoyStick)
 
         numericDirection = 0
         if(self.should_move_up):
-            numericDirection += 16
+            numericDirection += joystick.up
         if(self.should_move_down):
-            numericDirection += 8
+            numericDirection += joystick.down
         if(self.should_move_left):
-            numericDirection += 4
+            numericDirection += joystick.left
         if(self.should_move_right):
-            numericDirection += 1
+            numericDirection += joystick.right
 
         return (numericDirection)
