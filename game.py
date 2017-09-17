@@ -46,7 +46,8 @@ while game_on:
                 # player.x -= player.speed
                 player.should_move("left", True)
             elif event.key == 32:  # spacebar -- Fire!
-                bullets.add(Bullet(screen, player, 1))
+                bullets.add(
+                    Bullet(screen, player, player.fire_direction))
         elif event.type == pygame.KEYUP:
             if event.key == 273:
                 # player.y -= player.speed

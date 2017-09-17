@@ -17,6 +17,7 @@ class Player(Sprite):  # sub-class of pygame's Sprite class
         self.should_move_right = False
         self.rect = self.image.get_rect()
         print "Player Height %r, Player width %r" % (self.rect.height, self.rect.width)
+        self.fire_direction = 1
 
     def draw_me(self):
 
@@ -41,3 +42,31 @@ class Player(Sprite):  # sub-class of pygame's Sprite class
             self.should_move_left = yes_or_no
         if(direction == "right"):
             self.should_move_right = yes_or_no
+
+        numericDirection = self.get_current_direction()
+
+        # update when moving so when player stops they can keep firing in their last direction
+
+        if numericDirection > 0:
+            self.fire_direction = numericDirection
+
+    def get_current_direction(self):
+        # implement a joystick of sorts using binary conversion
+        # no movement yields 0
+        # left right up down are straigtforward
+        # up and right == 17
+        # up and left == 20
+        # down and right == 9
+        # down and left == 12
+
+        numericDirection = 0
+        if(self.should_move_up):
+            numericDirection += 16
+        if(self.should_move_down):
+            numericDirection += 8
+        if(self.should_move_left):
+            numericDirection += 4
+        if(self.should_move_right):
+            numericDirection += 1
+
+        return (numericDirection)
